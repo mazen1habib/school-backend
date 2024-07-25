@@ -1,0 +1,15 @@
+const express = require('express')
+const Router = express.Router()
+const validationuser = require('../middlewares/validation/userValidation.js')
+const userController = require('../controller/userController.js')
+const adminMiddlewre = require('../middlewares/adminMiddleware.js')
+const studentMiddlewre = require('../middlewares/studentMiddlware.js')
+Router.route('/register').post(adminMiddlewre,validationuser(),userController.registerUser)
+Router.route('/:type').get(adminMiddlewre,userController.getUsers)
+Router.route('/:id').delete(adminMiddlewre,userController.deleteUser)
+Router.route('/newpassword/:id').patch(adminMiddlewre,userController.updateUserPassword)
+Router.route('/update/:id').patch(adminMiddlewre,userController.updateUser)
+Router.route('/users/profile').get(studentMiddlewre,userController.getSingleUser)
+Router.route('/users/single/:id').get(adminMiddlewre,userController.hsingleUser)
+
+module.exports = Router

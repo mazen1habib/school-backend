@@ -1,0 +1,10 @@
+const express = require('express')
+const Router = express.Router()
+const sessionController =require('../controller/sessionsController.js')
+const validationSession = require('../middlewares/validation/sessionValidation.js')
+const instructorMiddlewre = require('../middlewares/instructorMiddlwares.js')
+const studentMiddlware = require('../middlewares/studentMiddlware.js')
+Router.route('/:diploma/:group/addsession').post(instructorMiddlewre,validationSession(),sessionController.addSession)
+Router.route('/:groupname/sessions').get(studentMiddlware,sessionController.getAllSession)
+Router.route('/:id').get(studentMiddlware,sessionController.getSingleSession).patch(instructorMiddlewre,validationSession(),sessionController.updateSession)
+module.exports = Router
